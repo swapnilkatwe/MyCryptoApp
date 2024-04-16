@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct HomeView: View {
+
     @EnvironmentObject private var vm: HomeViewModel
     @State private var showPortfolio: Bool = false
+
     var body: some View {
         ZStack {
             // Background layer
@@ -18,7 +20,11 @@ struct HomeView: View {
 
             //Content Layer
             VStack(spacing: 0) {
+                
                 homeHeder
+
+                SearchBarView(searchText: $vm.searchText)
+
                 columnTitle
 
                 if !showPortfolio {
@@ -34,14 +40,6 @@ struct HomeView: View {
             
         }
     }
-}
-
-#Preview {
-    NavigationStack {
-        HomeView()
-            .toolbar(.hidden)
-    }
-    .environmentObject(HomeViewModel())
 }
 
 extension HomeView {
@@ -104,4 +102,12 @@ extension HomeView {
         .foregroundStyle(Color.theme.accent)
         .padding(.horizontal)
     }
+}
+
+#Preview {
+    NavigationStack {
+        HomeView()
+            .toolbar(.hidden)
+    }
+    .environmentObject(HomeViewModel())
 }
