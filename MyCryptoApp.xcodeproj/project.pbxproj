@@ -16,6 +16,8 @@
 		553FB8942BCEB49700E28371 /* StatisticModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553FB8932BCEB49700E28371 /* StatisticModel.swift */; };
 		553FB8962BCEB59300E28371 /* StatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553FB8952BCEB59300E28371 /* StatisticView.swift */; };
 		553FB8982BCFB38100E28371 /* HomeStatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553FB8972BCFB38100E28371 /* HomeStatisticView.swift */; };
+		553FB89A2BCFC04800E28371 /* MarketDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553FB8992BCFC04800E28371 /* MarketDataModel.swift */; };
+		553FB89C2BCFC32900E28371 /* MarketDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553FB89B2BCFC32900E28371 /* MarketDataService.swift */; };
 		5589292D2BC7F43700E67CE0 /* MyCryptoAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589292C2BC7F43700E67CE0 /* MyCryptoAppApp.swift */; };
 		558929342BC7F43900E67CE0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 558929332BC7F43900E67CE0 /* Preview Assets.xcassets */; };
 		5589293B2BC7F5A600E67CE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5589293A2BC7F5A600E67CE0 /* Assets.xcassets */; };
@@ -42,6 +44,8 @@
 		553FB8932BCEB49700E28371 /* StatisticModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticModel.swift; sourceTree = "<group>"; };
 		553FB8952BCEB59300E28371 /* StatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticView.swift; sourceTree = "<group>"; };
 		553FB8972BCFB38100E28371 /* HomeStatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticView.swift; sourceTree = "<group>"; };
+		553FB8992BCFC04800E28371 /* MarketDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketDataModel.swift; sourceTree = "<group>"; };
+		553FB89B2BCFC32900E28371 /* MarketDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketDataService.swift; sourceTree = "<group>"; };
 		558929292BC7F43700E67CE0 /* MyCryptoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCryptoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5589292C2BC7F43700E67CE0 /* MyCryptoAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCryptoAppApp.swift; sourceTree = "<group>"; };
 		558929332BC7F43900E67CE0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -190,6 +194,7 @@
 			children = (
 				5589294C2BC81CDC00E67CE0 /* CoinModel.swift */,
 				553FB8932BCEB49700E28371 /* StatisticModel.swift */,
+				553FB8992BCFC04800E28371 /* MarketDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -199,6 +204,7 @@
 			children = (
 				558929582BC952D000E67CE0 /* CoinDataService.swift */,
 				553FB8892BCD453500E28371 /* CoinImageService.swift */,
+				553FB89B2BCFC32900E28371 /* MarketDataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -283,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				553FB8942BCEB49700E28371 /* StatisticModel.swift in Sources */,
+				553FB89C2BCFC32900E28371 /* MarketDataService.swift in Sources */,
 				553FB8962BCEB59300E28371 /* StatisticView.swift in Sources */,
 				553FB8922BCE9E5A00E28371 /* UIApplication.swift in Sources */,
 				553FB88C2BCD470A00E28371 /* CoinImageViewModel.swift in Sources */,
@@ -295,6 +302,7 @@
 				553FB88E2BCD613F00E28371 /* LocalFileManager.swift in Sources */,
 				5589293E2BC7F6C700E67CE0 /* Color.swift in Sources */,
 				5589294A2BC8072900E67CE0 /* CircleButtonAnimationView.swift in Sources */,
+				553FB89A2BCFC04800E28371 /* MarketDataModel.swift in Sources */,
 				558929522BC92F4100E67CE0 /* PreviewProvider.swift in Sources */,
 				558929542BC9357200E67CE0 /* Double.swift in Sources */,
 				5589295C2BC9694900E67CE0 /* NetworkingManager.swift in Sources */,
