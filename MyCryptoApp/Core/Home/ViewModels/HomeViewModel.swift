@@ -12,18 +12,20 @@
 import Foundation
 import Combine
 class HomeViewModel: ObservableObject {
-    
+    @Published var statistics: [StatisticModel] = []
     @Published var allCoins: [CoinModel] = []
     @Published var portfolioCoin: [CoinModel] = []
     @Published var searchText: String = ""
     
-    private let dataService = CoinDataService()
+    private let coinDataService = CoinDataService()
+    private let marketDataService = MarketDataService()
+
     // To cancel any subscription
     private var cancellables = Set<AnyCancellable>()
 
     
     init() {
-        addSubscriber()
+        addSubscribers()
         
         //Code before api call to mock data
         /*
@@ -37,11 +39,11 @@ class HomeViewModel: ObservableObject {
     // Now we need to list allCoins from this model with allCoins from coinDataService.
     // the reason is, when we initialise dataService here then allCoins in coinDataService will get all data in (@publised)allCoin variable after url call.
     
-    func addSubscriber() {
+    func addSubscribers() {
 
         // Update all coins
         $searchText
-            .combineLatest(dataService.$allCoins)
+            .combineLatest(coinDataService.$allCoins)
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
             .map(filterCoins)
             .sink { [weak self] returnedCoins in
@@ -61,6 +63,15 @@ class HomeViewModel: ObservableObject {
          }
          .store(in: &cancellables)
          */
+
+        // MarketData subscriber Updates Market Data. This is used to show Statisitic data on homeView
+        marketDataService.$marketData
+            .map(mapGlobalMarketData)
+            .sink { [weak self] returnedStats in
+                self?.statistics = returnedStats
+            }
+            .store(in: &cancellables)
+            
     }
     
     private func filterCoins(text: String, coins: [CoinModel]) -> [CoinModel] {
@@ -75,5 +86,24 @@ class HomeViewModel: ObservableObject {
             coin.symbol.lowercased().contains(lowercaseText) ||
             coin.id.lowercased().contains(lowercaseText)
         }
+    }
+    
+    private func mapGlobalMarketData(marketDataModel: MarketDataModel?) -> [StatisticModel] {
+        var stats: [StatisticModel] = []
+        
+        guard let marketData = marketDataModel else { return stats }
+        
+        let marketCap = StatisticModel(title: "Market Cap", value: marketData.marketCap, percentageChange: marketData.marketCapChangePercentage24HUsd)
+        
+        let volume = StatisticModel(title: "24h Volume", value: marketData.volume)
+        let btcDominance = StatisticModel(title: "BTC Dominance", value: marketData.btcDominance)
+        let portfolio = StatisticModel(title: "Portfolio Value", value: "0.0", percentageChange: 0.0)
+        stats.append(contentsOf: [
+            marketCap,
+            volume,
+            btcDominance,
+            portfolio
+        ])
+        return stats
     }
 }

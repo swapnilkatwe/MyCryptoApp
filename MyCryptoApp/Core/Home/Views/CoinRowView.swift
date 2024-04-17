@@ -22,17 +22,6 @@ struct CoinRowView: View {
     }
 }
 
-//#Preview {
-//    CoinRowView(coin: dev.coinModel)
-//}
-
-struct CoinRowView_Preview: PreviewProvider {
-    static var previews: some View {
-            CoinRowView(coin: dev.coinModel, showHoldingsColumn: true)
-                .previewLayout(.sizeThatFits)
-    }
-}
-
 extension CoinRowView {
     
     private var leftCoulumView: some View {
@@ -67,7 +56,7 @@ extension CoinRowView {
                 .bold()
                 .foregroundStyle(Color.theme.accent)
             
-            Text(coin.priceChangePercentage24H?.asPercenstString() ?? "")
+            Text(coin.priceChangePercentage24H?.asPercentString() ?? "")
                 .foregroundStyle(
                     (coin.priceChangePercentage24H ?? 0) >= 0 ?
                     Color.theme.green :
@@ -77,5 +66,16 @@ extension CoinRowView {
         // Warning:  UIScreen is depricating so use geometry or ther option instead
         // for only portrait mode, or use geometry
         .frame(width: UIScreen.main.bounds.width / 3, alignment: .trailing)
+    }
+}
+
+//#Preview {
+//    CoinRowView(coin: dev.coinModel)
+//}
+
+struct CoinRowView_Preview: PreviewProvider {
+    static var previews: some View {
+            CoinRowView(coin: dev.coinModel, showHoldingsColumn: true)
+                .previewLayout(.sizeThatFits)
     }
 }
