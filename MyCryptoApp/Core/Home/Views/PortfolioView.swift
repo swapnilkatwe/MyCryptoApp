@@ -36,6 +36,12 @@ struct PortfolioView: View {
                     trailingNavBarButton
                 }
             }
+
+            .onChange(of: vm.searchText) { value in
+                if value == "" {
+                    removeSelectedCoins()
+                }
+            }
         }
     }
 }
@@ -44,13 +50,13 @@ extension PortfolioView {
 
     private var coinLogoList: some View {
         LazyHStack(spacing: 10, content: {
-            ForEach(vm.allCoins) { coin in
+            ForEach(vm.searchText.isEmpty ? vm.portfolioCoin : vm.allCoins) { coin in
                 CoinLogoView(coin: coin)
                     .frame(width: 75)
                     .padding(4)
                     .onTapGesture {
                         withAnimation(.easeOut) {
-                            selectedCoin = coin
+                            updateSelectedCoins(coin: coin)
                         }
                     }
                     .background(
@@ -110,6 +116,17 @@ extension PortfolioView {
     }
     
     //MARK: - Helper functions
+    private func updateSelectedCoins(coin: CoinModel) {
+        selectedCoin = coin
+        if let portfolioCoins = vm.portfolioCoin.first(where: { $0.id == coin.id }),
+           let amount = portfolioCoins.currentHoldings {
+            quantity = "\(amount)"
+        } else {
+            quantity = ""
+        }
+        
+    }
+
     private func getCurrentValues() -> Double {
         if let quantity = Double(quantity) {
             return quantity * (selectedCoin?.currentPrice ?? 0)
@@ -118,18 +135,20 @@ extension PortfolioView {
     }
     
     private func saveButtonPressed() {
-        guard let coin = selectedCoin else { return }
-        
+        guard let coin = selectedCoin,
+              let amount = Double(quantity) else { return }
+
         // save to portfolio
-        
+        vm.updatePortfolio(coin: coin, amount: amount)
+
         withAnimation(.easeIn) {
             showCheckmark  = true
             removeSelectedCoins()
         }
-        
+
         // Hide keyboard
         UIApplication.shared.endEditing()
-        
+
         // Hide checkmark
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             withAnimation(.easeInOut) {
