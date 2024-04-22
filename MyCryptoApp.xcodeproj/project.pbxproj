@@ -37,7 +37,19 @@
 		559B67BD2BCFDB4500D66B47 /* CoinLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559B67BC2BCFDB4500D66B47 /* CoinLogoView.swift */; };
 		559B67C02BD00A8700D66B47 /* PortfolioContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 559B67BE2BD00A8600D66B47 /* PortfolioContainer.xcdatamodeld */; };
 		559B67C22BD00B2D00D66B47 /* PortfolioDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559B67C12BD00B2D00D66B47 /* PortfolioDataService.swift */; };
+		559B67CC2BD27EB400D66B47 /* MyCryptoAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559B67CB2BD27EB400D66B47 /* MyCryptoAppUITests.swift */; };
+		559B67D52BD27F0A00D66B47 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559B67D42BD27F0A00D66B47 /* SnapshotHelper.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		559B67CF2BD27EB400D66B47 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 558929212BC7F43700E67CE0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 558929282BC7F43700E67CE0;
+			remoteInfo = MyCryptoApp;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		553FB8872BCD426E00E28371 /* CoinImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinImageView.swift; sourceTree = "<group>"; };
@@ -71,10 +83,20 @@
 		559B67BC2BCFDB4500D66B47 /* CoinLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinLogoView.swift; sourceTree = "<group>"; };
 		559B67BF2BD00A8700D66B47 /* PortfolioContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PortfolioContainer.xcdatamodel; sourceTree = "<group>"; };
 		559B67C12BD00B2D00D66B47 /* PortfolioDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioDataService.swift; sourceTree = "<group>"; };
+		559B67C92BD27EB400D66B47 /* MyCryptoAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyCryptoAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		559B67CB2BD27EB400D66B47 /* MyCryptoAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCryptoAppUITests.swift; sourceTree = "<group>"; };
+		559B67D42BD27F0A00D66B47 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		558929262BC7F43700E67CE0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		559B67C62BD27EB400D66B47 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -97,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				5589292B2BC7F43700E67CE0 /* MyCryptoApp */,
+				559B67CA2BD27EB400D66B47 /* MyCryptoAppUITests */,
 				5589292A2BC7F43700E67CE0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -105,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				558929292BC7F43700E67CE0 /* MyCryptoApp.app */,
+				559B67C92BD27EB400D66B47 /* MyCryptoAppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -233,6 +257,15 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		559B67CA2BD27EB400D66B47 /* MyCryptoAppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				559B67D42BD27F0A00D66B47 /* SnapshotHelper.swift */,
+				559B67CB2BD27EB400D66B47 /* MyCryptoAppUITests.swift */,
+			);
+			path = MyCryptoAppUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -253,6 +286,24 @@
 			productReference = 558929292BC7F43700E67CE0 /* MyCryptoApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		559B67C82BD27EB400D66B47 /* MyCryptoAppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 559B67D32BD27EB400D66B47 /* Build configuration list for PBXNativeTarget "MyCryptoAppUITests" */;
+			buildPhases = (
+				559B67C52BD27EB400D66B47 /* Sources */,
+				559B67C62BD27EB400D66B47 /* Frameworks */,
+				559B67C72BD27EB400D66B47 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				559B67D02BD27EB400D66B47 /* PBXTargetDependency */,
+			);
+			name = MyCryptoAppUITests;
+			productName = MyCryptoAppUITests;
+			productReference = 559B67C92BD27EB400D66B47 /* MyCryptoAppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -265,6 +316,10 @@
 				TargetAttributes = {
 					558929282BC7F43700E67CE0 = {
 						CreatedOnToolsVersion = 15.3;
+					};
+					559B67C82BD27EB400D66B47 = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = 558929282BC7F43700E67CE0;
 					};
 				};
 			};
@@ -282,6 +337,7 @@
 			projectRoot = "";
 			targets = (
 				558929282BC7F43700E67CE0 /* MyCryptoApp */,
+				559B67C82BD27EB400D66B47 /* MyCryptoAppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -293,6 +349,13 @@
 			files = (
 				558929342BC7F43900E67CE0 /* Preview Assets.xcassets in Resources */,
 				5589293B2BC7F5A600E67CE0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		559B67C72BD27EB400D66B47 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,7 +397,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		559B67C52BD27EB400D66B47 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				559B67CC2BD27EB400D66B47 /* MyCryptoAppUITests.swift in Sources */,
+				559B67D52BD27F0A00D66B47 /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		559B67D02BD27EB400D66B47 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 558929282BC7F43700E67CE0 /* MyCryptoApp */;
+			targetProxy = 559B67CF2BD27EB400D66B47 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		558929352BC7F43900E67CE0 /* Debug */ = {
@@ -514,6 +594,38 @@
 			};
 			name = Release;
 		};
+		559B67D12BD27EB400D66B47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.myApp.MyCryptoAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MyCryptoApp;
+			};
+			name = Debug;
+		};
+		559B67D22BD27EB400D66B47 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.myApp.MyCryptoAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MyCryptoApp;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -531,6 +643,15 @@
 			buildConfigurations = (
 				558929382BC7F43900E67CE0 /* Debug */,
 				558929392BC7F43900E67CE0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		559B67D32BD27EB400D66B47 /* Build configuration list for PBXNativeTarget "MyCryptoAppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				559B67D12BD27EB400D66B47 /* Debug */,
+				559B67D22BD27EB400D66B47 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
