@@ -12,7 +12,10 @@ struct HomeView: View {
     @EnvironmentObject private var vm: HomeViewModel
     @State private var showPortfolio: Bool = false // Animate to right
     @State private var showPortfolioView: Bool = false // New sheet
-
+    
+    @State private var selectedCoin: CoinModel? = nil
+    @State private var showDetailView: Bool = false
+    
     var body: some View {
         ZStack {
             // Background layer
@@ -44,7 +47,6 @@ struct HomeView: View {
                 }
                 Spacer(minLength: 0)
             }
-            
         }
     }
 }
@@ -84,9 +86,15 @@ extension HomeView {
             ForEach(vm.allCoins) { coin in
                 CoinRowView(coin: coin, showHoldingsColumn: false)
                     .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                    .onTapGesture {
+                        segue(coin: coin)
+                    }
             }
         }
         .listStyle(.plain)
+        .navigationDestination(isPresented: $showDetailView, destination: {
+            detailLoadingView(coin: $selectedCoin)
+        })
     }
     
     private var portfolioCoinView: some View {
@@ -94,11 +102,22 @@ extension HomeView {
             ForEach(vm.portfolioCoin) { coin in
                 CoinRowView(coin: coin, showHoldingsColumn: true)
                     .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                    .onTapGesture {
+                        segue(coin: coin)
+                    }
             }
         }
         .listStyle(.plain)
+        .navigationDestination(isPresented: $showDetailView, destination: {
+            detailLoadingView(coin: $selectedCoin)
+        })
     }
     
+    private func segue(coin: CoinModel) {
+        selectedCoin = coin
+        showDetailView.toggle()
+    }
+
     private var columnTitle: some View {
         HStack {
             HStack(spacing: 4) {
