@@ -7,9 +7,10 @@
 
 import SwiftUI
 
+// This view is added to load DetailView through it because to check if coin is not nil and avoid detailView to loading if nil coin
 struct detailLoadingView: View {
     @Binding var coin: CoinModel?
-    
+
     var body: some View {
         ZStack {
             if let coin = coin {
@@ -20,14 +21,14 @@ struct detailLoadingView: View {
 }
 
 struct DetailView: View {
-    
-    let coin: CoinModel
+    @StateObject var vm: DetailViewModel
+
     init(coin: CoinModel) {
-        self.coin = coin
+        _vm = StateObject(wrappedValue: DetailViewModel(coin: coin))
         print("Initialising detail view for \(coin.name)")
     }
     var body: some View {
-        Text(coin.name)
+        Text("Body")
     }
 }
 
