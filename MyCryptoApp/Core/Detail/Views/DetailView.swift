@@ -21,20 +21,84 @@ struct detailLoadingView: View {
 }
 
 struct DetailView: View {
-    @StateObject var vm: DetailViewModel
-
+    @StateObject private var vm: DetailViewModel
+    private let columns: [GridItem] = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    private let spacing: CGFloat = 30
     init(coin: CoinModel) {
         _vm = StateObject(wrappedValue: DetailViewModel(coin: coin))
-        print("Initialising detail view for \(coin.name)")
     }
     var body: some View {
-        Text("Body")
+        ScrollView {
+            VStack(spacing: 20) {
+               
+                overviewTitle
+                Divider()
+                overViewGrid
+                
+                additionalTitle
+                Divider()
+                additionalGrid
+            }
+            .padding()
+            
+            
+            
+        }
+        .navigationTitle(vm.coin.name)
+        
+    }
+}
+
+extension DetailView {
+    private var overviewTitle: some View {
+        Text("Overview")
+            .font(.title)
+            .bold()
+            .foregroundStyle(Color.theme.accent)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var additionalTitle: some View {
+        Text("Detail View")
+            .font(.title)
+            .bold()
+            .foregroundStyle(Color.theme.accent)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private var overViewGrid: some View {
+        LazyVGrid(columns: columns,
+                  alignment: .leading,
+                  spacing: spacing,
+                  pinnedViews: [],
+                  content: {
+            ForEach(vm.overviewStatistics) { stat in
+                StatisticView(stat: stat)
+            }
+        })
+    }
+    
+    private var additionalGrid: some View {
+        LazyVGrid(columns: columns,
+                  alignment: .leading,
+                  spacing: spacing,
+                  pinnedViews: [],
+                  content: {
+            ForEach(vm.additionalStatistics) { stat in
+                StatisticView(stat: stat)
+            }
+        })
     }
 }
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(coin: dev.coinModel)
+        NavigationStack {
+            DetailView(coin: dev.coinModel)
+        }
     }
 }
 
