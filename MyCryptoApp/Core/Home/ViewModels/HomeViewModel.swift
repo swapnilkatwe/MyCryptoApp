@@ -16,7 +16,8 @@ class HomeViewModel: ObservableObject {
     @Published var allCoins: [CoinModel] = []
     @Published var portfolioCoin: [CoinModel] = []
     @Published var searchText: String = ""
-    
+    @Published var sortOption: SortOptions = .holings
+
     private let coinDataService = CoinDataService()
     private let marketDataService = MarketDataService()
 
@@ -25,6 +26,9 @@ class HomeViewModel: ObservableObject {
     // To cancel any subscription
     private var cancellables = Set<AnyCancellable>()
 
+    enum SortOptions {
+        case rank, rankReversed, holings, holdingsReversed, price, priceReversed
+    }
     
     init() {
         addSubscribers()
@@ -45,40 +49,24 @@ class HomeViewModel: ObservableObject {
 
         // Update all coins
         $searchText
-            .combineLatest(coinDataService.$allCoins)
+            .combineLatest(coinDataService.$allCoins, $sortOption)
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
-            .map(filterCoins)
+            .map(filterAndSortCoins)
             .sink { [weak self] returnedCoins in
                 self?.allCoins = returnedCoins
+                print("-> all coins with search text")
             }
             .store(in: &cancellables)
-        
-        /*
-         Before adding search functionality, we could use this code to return coins.
-         But for filter logic we have combined dataService with searchText publisher as above.
-         
-         Below is simple code to get allCoins
-         
-         dataService.$allCoins
-         .sink { [weak self] returnedCoins in
-         self?.allCoins = returnedCoins
-         }
-         .store(in: &cancellables)
-         */
+
 
         // Updates PortfolioCoins
         $allCoins
             .combineLatest(portfolioDataService.$savedEntities)
-            .map { (coinModels, portfolioEntities) -> [CoinModel] in
-                coinModels.compactMap { currentCoin -> CoinModel? in
-                    guard let entity = portfolioEntities.first(where: { $0.coinId == currentCoin.id }) else {
-                        return nil
-                    }
-                    return currentCoin.updateHoldings(amount: entity.amount)
-                }
-            }
+            .map(mapAllCoinsToPortfolioCoins)
             .sink { [weak self] returnedCoins in
-                self?.portfolioCoin = returnedCoins
+                guard let self = self else { return }
+                self.portfolioCoin = self.softPortfolioCoinsIfNeeded(coins: returnedCoins)
+                print("--> all coins map to prortfolio")
             }
             .store(in: &cancellables)
         
@@ -88,6 +76,7 @@ class HomeViewModel: ObservableObject {
             .map(mapGlobalMarketData)
             .sink { [weak self] returnedStats in
                 self?.statistics = returnedStats
+                print("---> all coins with market data service")
             }
             .store(in: &cancellables)
     }
@@ -96,6 +85,53 @@ class HomeViewModel: ObservableObject {
         portfolioDataService.updatePortfolio(coin: coin, amount: amount)
     }
     
+    private func filterAndSortCoins(text: String, coins: [CoinModel], sort: SortOptions) -> [CoinModel] {
+        var updatedCoins = filterCoins(text: text, coins: coins)
+        //sort
+        sortCoins(sort: sort, coin: &updatedCoins)
+        return updatedCoins
+    }
+
+    private func mapAllCoinsToPortfolioCoins(coinModels: [CoinModel], portfolioEntities: [PortfolioEntity]) -> [CoinModel]  {
+        coinModels.compactMap { currentCoin -> CoinModel? in
+            guard let entity = portfolioEntities.first(where: { $0.coinId == currentCoin.id }) else {
+                return nil
+            }
+            return currentCoin.updateHoldings(amount: entity.amount)
+        }
+    }
+    // Here we using inout so use same coinModel array to sort and use is make little more memmory efficient than normal way.
+    // Regular way you can return newly created coinModel array every time you sort the array.
+    private func sortCoins(sort: SortOptions, coin: inout [CoinModel]) {
+        switch sort {
+        case .rank, .holings:
+             coin.sort(by: { $0.rank < $1.rank })
+            
+        case .rankReversed, .holdingsReversed:
+             coin.sort(by: { $0.rank > $1.rank })
+            
+        case .price:
+             coin.sort(by: { $0.currentPrice > $1.currentPrice })
+        
+        case .priceReversed:
+             coin.sort(by: { $0.currentPrice < $1.currentPrice })
+        }
+    }
+    
+    private func softPortfolioCoinsIfNeeded(coins: [CoinModel]) -> [CoinModel] {
+        // Only sort by holding or holdingreversed if Needed
+        switch sortOption {
+        case .holings:
+            return coins.sorted(by: {$0.currentHoldingsValue > $1.currentHoldingsValue})
+        case .holdingsReversed:
+            return coins.sorted(by: {$0.currentHoldingsValue < $1.currentHoldingsValue})
+        default:
+            return coins
+        }
+    
+        
+    }
+
     private func filterCoins(text: String, coins: [CoinModel]) -> [CoinModel] {
 
         guard !text.isEmpty else {
@@ -145,3 +181,29 @@ class HomeViewModel: ObservableObject {
         return stats
     }
 }
+
+
+/*
+  Before adding search functionality, we could use this code to return coins.
+  But for filter logic we have combined dataService with searchText publisher as above.
+  
+  Below is simple code to get allCoins
+  
+  dataService.$allCoins
+  .sink { [weak self] returnedCoins in
+  self?.allCoins = returnedCoins
+  }
+  .store(in: &cancellables)
+ */
+
+/*
+ .map { (coinModels, portfolioEntities) -> [CoinModel] in
+     coinModels.compactMap { currentCoin -> CoinModel? in
+         guard let entity = portfolioEntities.first(where: { $0.coinId == currentCoin.id }) else {
+             return nil
+         }
+         return currentCoin.updateHoldings(amount: entity.amount)
+     }
+ }
+ 
+ */
