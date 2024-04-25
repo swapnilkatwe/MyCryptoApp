@@ -16,12 +16,29 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationStack {
-            List {
-                settingSectionUrlsSection
-                coinGekoSection
-                developerSection
-                applicationSection
+            ZStack {
+                // Background
+                Color.theme.background
+                    .ignoresSafeArea()
+  
+                // Content
+                List {
+                    settingSectionUrlsSection
+                        .listRowBackground(Color.black.opacity(0.1))
+                    coinGekoSection
+                        .listRowBackground(Color.black.opacity(0.1))
+                    developerSection
+                        .listRowBackground(Color.black.opacity(0.1))
+                    applicationSection
+                        .listRowBackground(Color.black.opacity(0.1))
+                }
+                .listStyle(.insetGrouped)
+                .scrollContentBackground(.hidden)
             }
+            .background(
+                Color.theme.background
+                    .ignoresSafeArea()
+            )
             .font(.headline)
             .tint(.blue)
             .listStyle(.grouped)

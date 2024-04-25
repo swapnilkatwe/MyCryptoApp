@@ -31,7 +31,7 @@ struct LaunchView: View {
                             Text(loadingText[index])
                                 .font(.headline)
                                 .fontWeight(.heavy)
-                                .foregroundStyle(Color.theme.accent)
+                                .foregroundStyle(Color.launch.accent)
                                 .offset(y: counter == index ? -5 : 0)
                         }
                     }
