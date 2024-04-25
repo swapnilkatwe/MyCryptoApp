@@ -11,8 +11,9 @@ struct HomeView: View {
 
     @EnvironmentObject private var vm: HomeViewModel
     @State private var showPortfolio: Bool = false // Animate to right
-    @State private var showPortfolioView: Bool = false // New sheet
-    
+    @State private var showPortfolioView: Bool = false // New sheet Portfolio
+    @State private var showSettingView: Bool = false // Setting View Sheet
+
     @State private var selectedCoin: CoinModel? = nil
     @State private var showDetailView: Bool = false
     
@@ -42,11 +43,21 @@ struct HomeView: View {
                         .transition(.move(edge: .leading))
                 }
                 if showPortfolio {
-                    portfolioCoinView
+                    ZStack(alignment: .top) {
+                        if vm.portfolioCoin.isEmpty && vm.searchText.isEmpty {
+                            portfolioEmptyText
+                        } else {
+                            portfolioCoinView
+                        }
+                    }
                         .transition(.move(edge: .trailing))
                 }
                 Spacer(minLength: 0)
             }
+            // multiple sheet can not be added on same view but if we add it on other Stack then it will create a separate hirarchy and sheet can be added as below. It is added on VStack now.
+            .sheet(isPresented: $showSettingView, content: {
+                SettingsView()
+            })
         }
     }
 }
@@ -58,6 +69,8 @@ extension HomeView {
                 .onTapGesture {
                     if showPortfolio {
                         showPortfolioView.toggle()
+                    } else {
+                        showSettingView.toggle()
                     }
                 }
                 .background(
@@ -89,6 +102,7 @@ extension HomeView {
                     .onTapGesture {
                         segue(coin: coin)
                     }
+                    .listRowBackground(Color.theme.background)
             }
         }
         .listStyle(.plain)
@@ -97,6 +111,15 @@ extension HomeView {
         })
     }
     
+    private var portfolioEmptyText: some View {
+        Text("you havent added any coins in your portfolio, Please click + button to get started!")
+            .font(.callout)
+            .foregroundStyle(Color.theme.accent)
+            .fontWeight(.medium)
+            .multilineTextAlignment(.center)
+            .padding(50)
+    }
+
     private var portfolioCoinView: some View {
         List {
             ForEach(vm.portfolioCoin) { coin in
@@ -105,7 +128,9 @@ extension HomeView {
                     .onTapGesture {
                         segue(coin: coin)
                     }
+                    .listRowBackground(Color.theme.background)
             }
+
         }
         .listStyle(.plain)
         .navigationDestination(isPresented: $showDetailView, destination: {

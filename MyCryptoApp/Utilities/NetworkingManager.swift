@@ -26,9 +26,9 @@ class NetworkingManager {
     static func download(url: URL) -> AnyPublisher<Data, any Error> {
         
        return URLSession.shared.dataTaskPublisher(for: url)
-            .subscribe(on: DispatchQueue.global(qos: .default))
+//            .subscribe(on: DispatchQueue.global(qos: .default)) // DataTaskPublisher by default it goes in background thread
             .tryMap({ try handleUrlResponse(output: $0, url: url)})
-            .receive(on: DispatchQueue.main)
+            .retry(3)
             .eraseToAnyPublisher() // This will erase uncessesory publisher and makes return type to AnyPublisher<Data, any Error> which is copy pasted in functions return type
         
     }
