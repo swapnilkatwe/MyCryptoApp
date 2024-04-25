@@ -22,6 +22,8 @@ struct detailLoadingView: View {
 
 struct DetailView: View {
     @StateObject private var vm: DetailViewModel
+    @State private var showFullDescription: Bool = false
+
     private let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -36,13 +38,22 @@ struct DetailView: View {
                 ChartView(coin: vm.coin)
                     .padding(.vertical)
                 VStack(spacing: 20) {
+
                     overviewTitle
+
                     Divider()
+                    
+                    descriptionSection
+                    
                     overViewGrid
                     
                     additionalTitle
+                                        
                     Divider()
+
                     additionalGrid
+
+                    websiteSection
                 }
                 .padding()
             }
@@ -85,6 +96,50 @@ extension DetailView {
         })
     }
     
+    private var descriptionSection: some View {
+        ZStack {
+            if let coinDescription = vm.coinDescription, !coinDescription.isEmpty {
+                VStack(alignment: .leading) {
+                    Text(coinDescription)
+                        .lineLimit(showFullDescription ? nil : 3)
+                        .font(.callout)
+                        .foregroundStyle(Color.theme.secondaryText)
+                    Button(action: {
+                        withAnimation(.easeOut) {
+                            showFullDescription.toggle()
+                        }
+                    }, label: {
+                        Text(showFullDescription ? "less.." : "Read more...")
+                            .font(.caption)
+                            .fontWeight(.bold)
+                            .padding(.vertical, 4)
+                            .foregroundStyle(Color.theme.accent)
+                    })
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
+            }
+        }
+    }
+
+    private var websiteSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            if let websiteUrl = vm.websiteUrl, let url = URL(string: websiteUrl) {
+                Link(destination: url, label: {
+                    Text("Website")
+                })
+            }
+            
+            if let urlString = vm.redditUrl, let url = URL(string: urlString) {
+                Link(destination: url, label: {
+                    Text("Reddit")
+                })
+            }
+        }
+        .tint(Color.theme.accent)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .font(.headline)
+    }
+
     private var additionalGrid: some View {
         LazyVGrid(columns: columns,
                   alignment: .leading,
