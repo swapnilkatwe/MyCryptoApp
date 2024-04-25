@@ -11,8 +11,9 @@ struct HomeView: View {
 
     @EnvironmentObject private var vm: HomeViewModel
     @State private var showPortfolio: Bool = false // Animate to right
-    @State private var showPortfolioView: Bool = false // New sheet
-    
+    @State private var showPortfolioView: Bool = false // New sheet Portfolio
+    @State private var showSettingView: Bool = false // Setting View Sheet
+
     @State private var selectedCoin: CoinModel? = nil
     @State private var showDetailView: Bool = false
     
@@ -47,6 +48,10 @@ struct HomeView: View {
                 }
                 Spacer(minLength: 0)
             }
+            // multiple sheet can not be added on same view but if we add it on other Stack then it will create a separate hirarchy and sheet can be added as below. It is added on VStack now.
+            .sheet(isPresented: $showSettingView, content: {
+                SettingsView()
+            })
         }
     }
 }
@@ -58,6 +63,8 @@ extension HomeView {
                 .onTapGesture {
                     if showPortfolio {
                         showPortfolioView.toggle()
+                    } else {
+                        showSettingView.toggle()
                     }
                 }
                 .background(
