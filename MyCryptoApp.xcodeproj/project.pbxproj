@@ -19,6 +19,7 @@
 		553FB89A2BCFC04800E28371 /* MarketDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553FB8992BCFC04800E28371 /* MarketDataModel.swift */; };
 		553FB89C2BCFC32900E28371 /* MarketDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553FB89B2BCFC32900E28371 /* MarketDataService.swift */; };
 		553FB89E2BCFCAB500E28371 /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553FB89D2BCFCAB500E28371 /* PortfolioView.swift */; };
+		5560E7642CAD85D100E78881 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5560E7632CAD85D100E78881 /* SnapshotHelper.swift */; };
 		5589292D2BC7F43700E67CE0 /* MyCryptoAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5589292C2BC7F43700E67CE0 /* MyCryptoAppApp.swift */; };
 		558929342BC7F43900E67CE0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 558929332BC7F43900E67CE0 /* Preview Assets.xcassets */; };
 		5589293B2BC7F5A600E67CE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5589293A2BC7F5A600E67CE0 /* Assets.xcassets */; };
@@ -38,7 +39,6 @@
 		559B67C02BD00A8700D66B47 /* PortfolioContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 559B67BE2BD00A8600D66B47 /* PortfolioContainer.xcdatamodeld */; };
 		559B67C22BD00B2D00D66B47 /* PortfolioDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559B67C12BD00B2D00D66B47 /* PortfolioDataService.swift */; };
 		559B67CC2BD27EB400D66B47 /* MyCryptoAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559B67CB2BD27EB400D66B47 /* MyCryptoAppUITests.swift */; };
-		559B67D52BD27F0A00D66B47 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559B67D42BD27F0A00D66B47 /* SnapshotHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +64,7 @@
 		553FB8992BCFC04800E28371 /* MarketDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketDataModel.swift; sourceTree = "<group>"; };
 		553FB89B2BCFC32900E28371 /* MarketDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketDataService.swift; sourceTree = "<group>"; };
 		553FB89D2BCFCAB500E28371 /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
+		5560E7632CAD85D100E78881 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		558929292BC7F43700E67CE0 /* MyCryptoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCryptoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5589292C2BC7F43700E67CE0 /* MyCryptoAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCryptoAppApp.swift; sourceTree = "<group>"; };
 		558929332BC7F43900E67CE0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -85,7 +86,6 @@
 		559B67C12BD00B2D00D66B47 /* PortfolioDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioDataService.swift; sourceTree = "<group>"; };
 		559B67C92BD27EB400D66B47 /* MyCryptoAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyCryptoAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		559B67CB2BD27EB400D66B47 /* MyCryptoAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCryptoAppUITests.swift; sourceTree = "<group>"; };
-		559B67D42BD27F0A00D66B47 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,7 +260,7 @@
 		559B67CA2BD27EB400D66B47 /* MyCryptoAppUITests */ = {
 			isa = PBXGroup;
 			children = (
-				559B67D42BD27F0A00D66B47 /* SnapshotHelper.swift */,
+				5560E7632CAD85D100E78881 /* SnapshotHelper.swift */,
 				559B67CB2BD27EB400D66B47 /* MyCryptoAppUITests.swift */,
 			);
 			path = MyCryptoAppUITests;
@@ -402,7 +402,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				559B67CC2BD27EB400D66B47 /* MyCryptoAppUITests.swift in Sources */,
-				559B67D52BD27F0A00D66B47 /* SnapshotHelper.swift in Sources */,
+				5560E7642CAD85D100E78881 /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
